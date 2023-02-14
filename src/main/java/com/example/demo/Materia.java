@@ -1,13 +1,17 @@
 package com.example.demo;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import org.springframework.util.StringUtils;
 
 import java.util.Objects;
 
 public final class Materia {
-//    @NotBlank
+//  @NotBlank
     private final String nombre;
-//    @NotNull
+//  @NotNull
+//  @Size(min = 1, max = 10,message = "El rango de la calificación no es valido")
     private final Float calificacion;
 
     Materia(final String nombre, final Float calificacion) throws IllegalArgumentException{
@@ -35,4 +39,17 @@ public final class Materia {
         return calificacion;
     }
 
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Materia materia = (Materia) o;
+        return nombre.equals(materia.nombre) && calificacion.equals(materia.calificacion);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nombre, calificacion);
+    }
 }

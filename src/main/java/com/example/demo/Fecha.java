@@ -22,4 +22,17 @@ public final class Fecha {
         return this.fecha;
     }
 
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Fecha fecha1 = (Fecha) o;
+        return fecha.equals(fecha1.fecha);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(fecha);
+    }
 }

@@ -65,4 +65,17 @@ public final class Estudiante {
         return materiasCursadas;
     }
 
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Estudiante that = (Estudiante) o;
+        return nombre.equals(that.nombre) && edad.equals(that.edad) && fechaFinalización.equals(that.fechaFinalización) && materiasCursadas.equals(that.materiasCursadas);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nombre, edad, fechaFinalización, materiasCursadas);
+    }
 }

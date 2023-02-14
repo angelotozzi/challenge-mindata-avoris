@@ -7,8 +7,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 class MateriaTest {
 
@@ -92,6 +91,34 @@ class MateriaTest {
     }
 
     @Test
+    public void testFechaEqualsOk(){
+        Fecha fecha = new Fecha(LocalDateTime.now());
+        Fecha fecha2 = new Fecha(LocalDateTime.now());
+        assertTrue(fecha.getFecha().equals(fecha2.getFecha()));
+    }
+
+    @Test
+    public void testFechaEqualsKo(){
+        Fecha fecha = new Fecha(LocalDateTime.now());
+        Fecha fecha2 = new Fecha(LocalDateTime.of(2023,02,02,17,30));
+        assertFalse(fecha.getFecha().equals(fecha2.getFecha()));
+    }
+
+    @Test
+    public void testFechaHashCodeOk(){
+        Fecha fecha = new Fecha(LocalDateTime.now());
+        Fecha fecha2 = fecha;
+        assertTrue(fecha.hashCode() == fecha2.hashCode());
+    }
+
+    @Test
+    public void testFechaHashCodeKo(){
+        Fecha fecha = new Fecha(LocalDateTime.now());
+        Fecha fecha2 = new Fecha(LocalDateTime.of(2023,02,02,17,30));
+        assertFalse(fecha.hashCode() == fecha2.hashCode());
+    }
+
+    @Test
     public void testConstructorExceptionFechaNull(){
 
         List<Materia> materiasCursadas = new ArrayList<Materia>();
@@ -107,6 +134,34 @@ class MateriaTest {
 
         assertThrows(IllegalArgumentException.class, () -> new Materia("", 9f), "El nombre de la materia no puede estar vacio");
 
+    }
+
+    @Test
+    public void testMateriaNombreEqualsOk(){
+        Materia materia = new Materia("Matematica", 9f);
+        Materia materia2 = new Materia("Matematica", 9f);
+        assertTrue(materia.getNombre().equals(materia2.getNombre()));
+    }
+
+    @Test
+    public void testMateriaNombreEqualsKo(){
+        Materia materia = new Materia("Matematica", 9f);
+        Materia materia2 = new Materia("Historia", 9f);
+        assertFalse(materia.getNombre().equals(materia2.getNombre()));
+    }
+
+    @Test
+    public void testMateriaNombreHashCodeOk(){
+        Materia materia = new Materia("Matematica", 9f);
+        Materia materia2 = materia;
+        assertTrue(materia.hashCode() == materia2.hashCode());
+    }
+
+    @Test
+    public void testMateriaNombreHashCodeKo(){
+        Materia materia = new Materia("Matematica", 9f);
+        Materia materia2 = new Materia("Historia", 9f);
+        assertFalse(materia.hashCode() == materia2.hashCode());
     }
 
     @Test
