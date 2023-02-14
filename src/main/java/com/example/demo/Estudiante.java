@@ -46,7 +46,7 @@ public final class Estudiante {
         this.nombre = nombre;
         this.edad = edad;
         this.fechaFinalización = fechaFinalización;
-        this.materiasCursadas = materiasCursadas;
+        this.materiasCursadas = Collections.unmodifiableList(materiasCursadas);
     }
 
     public String getNombre(){
@@ -62,7 +62,7 @@ public final class Estudiante {
     }
 
     public List<Materia> getMateriasCursadas (){
-        return Collections.unmodifiableList(materiasCursadas);
+        return materiasCursadas;
     }
 
 }

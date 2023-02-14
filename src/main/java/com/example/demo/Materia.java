@@ -18,6 +18,9 @@ public final class Materia {
         if(Objects.isNull(calificacion)){
             throw new IllegalArgumentException("La calificacion no puede estar vacia");
         }
+        if(calificacion.floatValue() > 10 || calificacion.floatValue() < 1){
+            throw new IllegalArgumentException("El rango de la calificación no es valido");
+        }
 
         this.nombre = nombre;
         this.calificacion = calificacion;

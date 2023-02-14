@@ -117,6 +117,13 @@ class MateriaTest {
     }
 
     @Test
+    public void testConstructorExceptionMateriasCalificacionFueraRango(){
+
+        assertThrows(IllegalArgumentException.class, () -> new Materia("Matematicas", 11f), "El rango de la calificación no es valido");
+
+    }
+
+    @Test
     public void testConstructorExceptionMateriasCursadasNull(){
 
         Fecha fechaFinalizacion = new Fecha(LocalDateTime.now());
