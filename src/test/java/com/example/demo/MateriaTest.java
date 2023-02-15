@@ -24,20 +24,52 @@ class MateriaTest {
     }
 
     @Test
-    public void testConstructorOK(){
+    public void testConstructorOk(){
 
         Fecha fechaFinalizacion = new Fecha(LocalDateTime.now());
-
         List<Materia> materiasCursadas = new ArrayList<Materia>();
-
         materiasCursadas.add(new Materia("Matematicas", 9f));
-
         Estudiante estudiante = new Estudiante("Juan", 18, fechaFinalizacion, materiasCursadas);
 
         assertEquals("Juan", estudiante.getNombre());
         assertEquals(18, estudiante.getEdad());
         assertEquals(LocalDateTime.now().getDayOfMonth()+"/"+LocalDateTime.now().getMonthValue(), estudiante.getFechaFinalización());
         assertEquals(materiasCursadas, estudiante.getMateriasCursadas());
+    }
+
+    @Test
+    public void testEqualshashCodeOk(){
+
+        Fecha fechaFinalizacion = new Fecha(LocalDateTime.now());
+        List<Materia> materiasCursadas = new ArrayList<Materia>();
+        materiasCursadas.add(new Materia("Matematicas", 9f));
+        Estudiante estudiante = new Estudiante("Juan", 18, fechaFinalizacion, materiasCursadas);
+
+        Fecha fechaFinalizacion2 = new Fecha(LocalDateTime.now());
+        List<Materia> materiasCursadas2 = new ArrayList<Materia>();
+        materiasCursadas2.add(new Materia("Matematicas", 9f));
+        Estudiante estudiante2 = new Estudiante("Juan", 18, fechaFinalizacion2, materiasCursadas2);
+
+        assertTrue(estudiante.equals(estudiante2));
+        assertTrue(estudiante.hashCode() == estudiante2.hashCode());
+    }
+
+    @Test
+    public void testEqualshashCodeKo(){
+
+        Fecha fechaFinalizacion = new Fecha(LocalDateTime.now());
+        List<Materia> materiasCursadas = new ArrayList<Materia>();
+        materiasCursadas.add(new Materia("Matematicas", 9f));
+        Estudiante estudiante = new Estudiante("Juan", 18, fechaFinalizacion, materiasCursadas);
+
+        Fecha fechaFinalizacion2 = new Fecha(LocalDateTime.now());
+        List<Materia> materiasCursadas2 = new ArrayList<Materia>();
+        materiasCursadas2.add(new Materia("Matematicas", 9f));
+        materiasCursadas2.add(new Materia("Fisica", 8f));
+        Estudiante estudiante2 = new Estudiante("Juan", 18, fechaFinalizacion2, materiasCursadas2);
+
+        assertFalse(estudiante.equals(estudiante2));
+        assertFalse(estudiante.hashCode() == estudiante2.hashCode());
     }
 
     @Test
@@ -91,32 +123,22 @@ class MateriaTest {
     }
 
     @Test
-    public void testFechaEqualsOk(){
+    public void testFechaEqualsHashCodeOk(){
         Fecha fecha = new Fecha(LocalDateTime.now());
         Fecha fecha2 = new Fecha(LocalDateTime.now());
+        Fecha fecha3 = fecha;
         assertTrue(fecha.getFecha().equals(fecha2.getFecha()));
+        assertTrue(fecha.hashCode() == fecha3.hashCode());
     }
 
     @Test
-    public void testFechaEqualsKo(){
+    public void testFechaEqualsHashCodeKo(){
         Fecha fecha = new Fecha(LocalDateTime.now());
         Fecha fecha2 = new Fecha(LocalDateTime.of(2023,02,02,17,30));
         assertFalse(fecha.getFecha().equals(fecha2.getFecha()));
-    }
-
-    @Test
-    public void testFechaHashCodeOk(){
-        Fecha fecha = new Fecha(LocalDateTime.now());
-        Fecha fecha2 = fecha;
-        assertTrue(fecha.hashCode() == fecha2.hashCode());
-    }
-
-    @Test
-    public void testFechaHashCodeKo(){
-        Fecha fecha = new Fecha(LocalDateTime.now());
-        Fecha fecha2 = new Fecha(LocalDateTime.of(2023,02,02,17,30));
         assertFalse(fecha.hashCode() == fecha2.hashCode());
     }
+
 
     @Test
     public void testConstructorExceptionFechaNull(){
@@ -137,32 +159,22 @@ class MateriaTest {
     }
 
     @Test
-    public void testMateriaNombreEqualsOk(){
+    public void testMateriaNombreEqualsHashCodeOk(){
         Materia materia = new Materia("Matematica", 9f);
         Materia materia2 = new Materia("Matematica", 9f);
+        Materia materia3 = materia;
         assertTrue(materia.getNombre().equals(materia2.getNombre()));
-    }
-
-    @Test
-    public void testMateriaNombreEqualsKo(){
-        Materia materia = new Materia("Matematica", 9f);
-        Materia materia2 = new Materia("Historia", 9f);
-        assertFalse(materia.getNombre().equals(materia2.getNombre()));
-    }
-
-    @Test
-    public void testMateriaNombreHashCodeOk(){
-        Materia materia = new Materia("Matematica", 9f);
-        Materia materia2 = materia;
         assertTrue(materia.hashCode() == materia2.hashCode());
     }
 
     @Test
-    public void testMateriaNombreHashCodeKo(){
+    public void testMateriaNombreEqualsHashCodeKo(){
         Materia materia = new Materia("Matematica", 9f);
         Materia materia2 = new Materia("Historia", 9f);
+        assertFalse(materia.getNombre().equals(materia2.getNombre()));
         assertFalse(materia.hashCode() == materia2.hashCode());
     }
+
 
     @Test
     public void testConstructorExceptionMateriasCalificacion(){
@@ -188,5 +200,7 @@ class MateriaTest {
         assertThrows(IllegalArgumentException.class, () -> new Estudiante("Juan",  18, fechaFinalizacion, materiasCursadas),"La lista de materias cursadas no debe estar vacia");
 
     }
+
+
 
 }
